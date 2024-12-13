@@ -6,3 +6,5 @@ const config = {
 };
 
 export default config;
+
+// Do not mess with the above code. It is a valid postcss.config.mjs file.
