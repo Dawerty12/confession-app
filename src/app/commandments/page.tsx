@@ -37,50 +37,79 @@ const CommandmentsList = () => {
     };
 
     return (
-        <div className="w-full p-4 bg-gray-100">
-            <h1 className="text-2xl font-bold mb-4">Commandments</h1>
-            <ul className="bg-white p-4 rounded-md">
+        <div className="w-full">
+            <div id="head" className='bg-background-black text-white p-4'>
+                <h1 className="text-2xl font-semibold text-center">Exame de consciência</h1>
+            </div>
+
+            <div id="alert-container" className="w-full mt-5 flex flex-col items-center justify-center ">
+                <div id="alert-head" className="w-11/12 bg-roman-yellow text-center rounded-t-2xl p-2" >
+                    <h1 className="font-semibold">ATENÇÃO</h1>
+                </div>
+                <div id="alert-box" className="w-11/12 p-2 text-center bg-background-gray rounded-b-2xl shadow-lg">
+                    <p>Para uma boa <span className='font-semibold'>confissão</span> é preciso de um bom exame
+                        de consciência. Procure fazer isso em um local calmo,
+                        onde você possa relaxar. Reze por sabedoria e responda
+                        essas perguntas de coração.
+                        Nenhum dado seu é retido, sendo as opções apenas usadas para montar
+                        posteriormente a sua confissão da melhor forma. É totalmente anônimo.</p>
+                </div>
+            </div>
+
+
+            <ul className="p-4 rounded-md">
                 {commandments.map((commandment) => (
-                    <li key={commandment.questionnaireNumber} className="mb-6 border-b pb-4">
-                        <h2 className="text-xl font-bold">
-                            {commandment.questionnaireNumber}. {commandment.questionnaireTitle}
-                        </h2>
-                        {commandment.questionnaireSubtitle && (
-                            <p className="text-gray-600">{commandment.questionnaireSubtitle}</p>
-                        )}
-                        <ul className="mt-4">
-                            {commandment.questions.map((question) => (
-                                <li key={question.questionNumber} className="mb-4">
-                                    <h3 className="font-semibold">
-                                        {question.questionNumber}. {question.questionTitle}
-                                    </h3>
-                                    <ul className="ml-4">
-                                        {question.options.map((option, index) => (
-                                            <li
-                                                key={index}
-                                                className={`flex items-center space-x-2 ${option.disabled ? 'opacity-50' : ''}`}
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    checked={option.checked || false}
-                                                    disabled={option.disabled || false}
-                                                    onChange={(e) =>
-                                                        handleCheckbox(
-                                                            commandment.questionnaireNumber,
-                                                            question.questionNumber,
-                                                            index,
-                                                            e.target.checked
-                                                        )
-                                                    }
-                                                />
-                                                <label className="text-gray-700">{option.optionPhrase}</label>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </li>
-                            ))}
-                        </ul>
-                    </li>
+                    <div id="question-container" className="mb-6 bg-background-gray rounded-2xl border-b pb-4 shadow-lg">
+                        <li key={commandment.questionnaireNumber}>
+                            <div id="title-head" className='bg-roman-red rounded-t-2xl p-2 text-center'>
+                            <h2 className="text-md font-semibold text-white">
+                                {commandment.questionnaireTitle}
+                            </h2>
+                            {commandment.questionnaireSubtitle && (
+                                <h1 className="text-lg text-white font-semibold oh1acity-70">{commandment.questionnaireSubtitle}</h1>
+                            )}
+                            </div>
+                            
+                            <ul className="m-4">
+                                {commandment.questions.map((question) => (
+                                    <li key={question.questionNumber} className="mb-4">
+                                       <div id="question-title" className='flex items-center mb-2'>
+                                         <div id="number" className='bg-roman-red text-white font-semibold w-8 h-8 flex items-center justify-center rounded-md'>
+                                            {question.questionNumber}
+                                         </div>
+                                         <div id="title" className='ml-2 font-semibold text-lg'>
+                                            {question.questionTitle}
+                                         </div>
+                                       </div>
+                                        <ul className="ml-2">
+                                            {question.options.map((option, index) => (
+                                                <li
+                                                    key={index}
+                                                    className={`pb-1 flex items-center space-x-2 ${option.disabled ? 'opacity-50' : ''}`}
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                         className="w-5 h-5 appearance-none border-2 border-gray-400 rounded-md checked:bg-black checked:border-black"
+                                                        checked={option.checked || false}
+                                                        disabled={option.disabled || false}
+                                                        onChange={(e) =>
+                                                            handleCheckbox(
+                                                                commandment.questionnaireNumber,
+                                                                question.questionNumber,
+                                                                index,
+                                                                e.target.checked
+                                                            )
+                                                        }
+                                                    />
+                                                    <label className="text-gray-700">{option.optionPhrase}</label>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                    </div>
                 ))}
             </ul>
         </div>

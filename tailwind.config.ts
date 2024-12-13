@@ -12,6 +12,10 @@ const config: Config = {
         roman: {
           'red': '#C80027',
           'yellow': '#DAA520'
+        },
+        background: {
+          'black': '#222222',
+          'gray': '#EEEEEE'
         }
       },
     },
