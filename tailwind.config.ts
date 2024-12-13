@@ -8,7 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {},
+      colors: {
+        roman: {
+          'red': '#C80027',
+          'yellow': '#DAA520'
+        }
+      },
     },
   },
   plugins: [],
