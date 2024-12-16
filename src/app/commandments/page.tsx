@@ -9,6 +9,18 @@ const CommandmentsList = () => {
     const [commandments, setCommandments] = useState<Commandment[]>([]);
 
     useEffect(() => {
+        // Alterar a cor da barra de status
+        const metaThemeColor = document.querySelector("meta[name='theme-color']");
+        if (metaThemeColor) {
+            metaThemeColor.setAttribute("content", "#000000"); // Define a cor como preto
+        } else {
+            // Caso a meta tag não exista, cria uma
+            const newMeta = document.createElement("meta");
+            newMeta.name = "theme-color";
+            newMeta.content = "#000000";
+            document.head.appendChild(newMeta);
+        }
+
         const fetchCommandments = async () => {
             try {
                 const response = await axios.get('/api');
