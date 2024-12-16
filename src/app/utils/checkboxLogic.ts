@@ -1,4 +1,19 @@
-import { Commandment } from "@/repositories/interfaces/ICommandments";
+import { Commandment, Question } from "@/repositories/interfaces/ICommandments";
+
+function applyExclusiveLogic(question: Question, exclusiveIndex: number) {
+    question.options.forEach((option, index) => {
+        if (index !== exclusiveIndex) {
+            option.checked = false;
+            option.disabled = true;
+        }
+    });
+}
+
+function enableAllOptions(question: Question) {
+    question.options.forEach((option) => {
+        delete option.disabled;
+    });
+}
 
 export function handleCheckboxChange(
     commandment: Commandment,
@@ -6,28 +21,26 @@ export function handleCheckboxChange(
     optionIndex: number,
     checked: boolean
 ): Commandment {
-
     const updatedCommandment = JSON.parse(JSON.stringify(commandment)) as Commandment;
 
     const question = updatedCommandment.questions.find(q => q.questionNumber === questionNumber);
-    if (!question) return updatedCommandment;
+
+    if (!question) {
+        console.warn(`Pergunta número ${questionNumber} não encontrada.`);
+        return updatedCommandment;
+    }
 
     question.options[optionIndex].checked = checked;
 
     if (checked) {
         if (question.options[optionIndex].isExclusive) {
-            question.options.forEach((option, index) => {
-                if (index !== optionIndex) {
-                    option.checked = false;
-                    option.disabled = true;
-                }
-            })
+            applyExclusiveLogic(question, optionIndex);
         }
+    } else {
+        enableAllOptions(question);
     }
-    else {
-        question.options.forEach((option) => {
-            delete option.disabled;
-        });
-    }
+
+    console.log(`Updated question:`, question);
+
     return updatedCommandment;
 }
