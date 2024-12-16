@@ -10,14 +10,13 @@ async function isConnected(): Promise<boolean> {
     return mongoose.connection.readyState === 1;
 }
 
-
 async function mongoConnect(): Promise<void> {
     if (await isConnected()) {
         console.log('Already connected to MongoDB');
         return;
     }
     try {
-        await mongoose.connect(MONGO_URI as any);
+        await mongoose.connect(MONGO_URI!); // "!" garante ao TS que MONGO_URI não é undefined
         console.log('Connected to MongoDB');
     } catch (error) {
         console.error('Error connecting to MongoDB:', error);
