@@ -17,7 +17,7 @@ const CommandmentsList = () => {
             // Caso a meta tag não exista, cria uma
             const newMeta = document.createElement("meta");
             newMeta.name = "theme-color";
-            newMeta.content = "#000000";
+            newMeta.content = "#222222";
             document.head.appendChild(newMeta);
         }
 
