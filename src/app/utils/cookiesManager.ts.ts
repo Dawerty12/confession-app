@@ -1,5 +1,4 @@
 import { setCookie, parseCookies } from "nookies";
-import { Commandment } from "@/repositories/interfaces/ICommandments";
 
 const COOKIE_NAME = "confession-options";
 

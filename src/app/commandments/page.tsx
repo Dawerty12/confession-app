@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Commandment } from '@/repositories/interfaces/ICommandments';
 import { handleCheckboxChange } from '@/app/utils/questionnaireLogic';
-import { saveToCookie } from '../utils/cookiesManager.ts';
 
 const CommandmentsList = () => {
     const [commandments, setCommandments] = useState<Commandment[]>([]);
