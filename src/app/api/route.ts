@@ -6,7 +6,7 @@ export async function GET() {
     await mongoConnect();
 
     try {
-        const commandments = await Commandments.find(); 
+        const commandments = await Commandments.find().sort({ questionnaireNumber: 1 }); 
         return NextResponse.json(commandments, { status: 200 });
     } catch (error) {
         console.error("Error fetching commandments:", error);
