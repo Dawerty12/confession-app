@@ -3,18 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Commandment } from '@/repositories/interfaces/ICommandments';
-import { handleCheckboxChange } from '@/app/utils/checkboxLogic';
+import { handleCheckboxChange } from '@/app/utils/questionnaireLogic';
+import { saveToCookie } from '../utils/cookiesManager.ts';
 
 const CommandmentsList = () => {
     const [commandments, setCommandments] = useState<Commandment[]>([]);
 
     useEffect(() => {
-        // Alterar a cor da barra de status
         const metaThemeColor = document.querySelector("meta[name='theme-color']");
         if (metaThemeColor) {
-            metaThemeColor.setAttribute("content", "#000000"); // Define a cor como preto
+            metaThemeColor.setAttribute("content", "#222222");
         } else {
-            // Caso a meta tag não exista, cria uma
+
             const newMeta = document.createElement("meta");
             newMeta.name = "theme-color";
             newMeta.content = "#222222";
@@ -39,13 +39,14 @@ const CommandmentsList = () => {
         optionIndex: number,
         isChecked: boolean
     ) => {
-        setCommandments(prevCommandments =>
-            prevCommandments.map((commandment) =>
+        setCommandments((prevCommandments) => {
+            const updatedCommandments = prevCommandments.map((commandment) =>
                 commandment.questionnaireNumber === questionnaireNumber
                     ? handleCheckboxChange(commandment, questionNumber, optionIndex, isChecked)
                     : commandment
-            )
-        );
+            );
+            return updatedCommandments;
+        });
     };
 
     return (
@@ -73,7 +74,7 @@ const CommandmentsList = () => {
                     <div
                         id="question-container"
                         className="mb-6 bg-background-gray rounded-2xl border-b pb-4 shadow-lg"
-                        key={commandment.questionnaireNumber} // "key" adicionado aqui
+                        key={commandment.questionnaireNumber}
                     >
                         <li>
                             <div id="title-head" className='bg-roman-red rounded-t-2xl p-2 text-center'>
@@ -84,7 +85,7 @@ const CommandmentsList = () => {
                                     <h1 className="text-lg text-white font-semibold opacity-70">{commandment.questionnaireSubtitle}</h1>
                                 )}
                             </div>
-                            
+
                             <ul className="m-4">
                                 {commandment.questions.map((question) => (
                                     <li key={question.questionNumber} className="mb-4">
@@ -96,26 +97,28 @@ const CommandmentsList = () => {
                                                 {question.questionTitle}
                                             </div>
                                         </div>
-                                        <ul className="ml-2">
+                                        <ul className="ml-2 max-w-72">
                                             {question.options.map((option, index) => (
                                                 <li
-                                                    key={index} // "key" adicionado aqui
+                                                    key={index}
                                                     className={`pb-1 flex items-center space-x-2 ${option.disabled ? 'opacity-50' : ''}`}
                                                 >
-                                                    <input
-                                                        type="checkbox"
-                                                        className="w-5 h-5 appearance-none border-2 border-gray-400 rounded-md checked:bg-black checked:border-black"
-                                                        checked={option.checked || false}
-                                                        disabled={option.disabled || false}
-                                                        onChange={(e) =>
-                                                            handleCheckbox(
-                                                                commandment.questionnaireNumber,
-                                                                question.questionNumber,
-                                                                index,
-                                                                e.target.checked
-                                                            )
-                                                        }
-                                                    />
+                                                    <div id="checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="appearance-none w-5 h-5 border-2 border-gray-400 rounded-md checked:bg-black checked:border-black"
+                                                            checked={option.checked || false}
+                                                            disabled={option.disabled || false}
+                                                            onChange={(e) =>
+                                                                handleCheckbox(
+                                                                    commandment.questionnaireNumber,
+                                                                    question.questionNumber,
+                                                                    index,
+                                                                    e.target.checked
+                                                                )
+                                                            }
+                                                        />
+                                                    </div>
                                                     <label className="text-gray-700">{option.optionPhrase}</label>
                                                 </li>
                                             ))}
