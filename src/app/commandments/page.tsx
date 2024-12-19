@@ -1,7 +1,5 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Commandment } from '@/repositories/interfaces/ICommandments';
 import { handleCheckboxChange } from '@/app/utils/handleCheckboxChange';
 import { fetchAndUpdateCommandments } from '../services/commandmentsService';
