@@ -1,5 +1,5 @@
 import { Commandment, Question } from "@/repositories/interfaces/ICommandments";
-import { CookieData, loadFromCookie, saveToCookie } from "./cookiesManager.ts";
+import { CookieData, loadFromCookie, saveToCookie } from "./cookiesManager";
 
 function applyExclusiveLogic(question: Question, exclusiveIndex: number) {
     question.options.forEach((option, index) => {
@@ -22,33 +22,22 @@ export function updateCookieData(
     optionPhrase: string,
     checked: boolean
 ): void {
-    // Carregar dados existentes
-    const cookieData: CookieData = loadFromCookie();
 
-    // Inicializar estrutura se não existir
-    if (!cookieData[questionnaireNumber]) {
-        cookieData[questionnaireNumber] = {};
-    }
-    if (!cookieData[questionnaireNumber][questionNumber]) {
-        cookieData[questionnaireNumber][questionNumber] = [];
-    }
+const cookieData: CookieData = loadFromCookie();
 
-    // Atualizar os dados com base na ação (checked / unchecked)
+    cookieData[questionnaireNumber] ??= {};
+    cookieData[questionnaireNumber][questionNumber] ??= [];
+
+
+
     const options = cookieData[questionnaireNumber][questionNumber];
+    const index = options.indexOf(optionPhrase);
 
-    if (checked) {
-        // Adicionar se não existir
-        if (!options.includes(optionPhrase)) {
-            options.push(optionPhrase);
-        }
-    } else {
-        // Remover a opção desmarcada
-        cookieData[questionnaireNumber][questionNumber] = options.filter(
-            (option) => option !== optionPhrase
-        );
+    if (checked && index === -1) {
+        options.push(optionPhrase); 
+    } else if (!checked && index > -1) {
+        options.splice(index, 1); 
     }
-
-    // Salvar os dados atualizados no cookie
     saveToCookie(cookieData);
 }
 
@@ -64,7 +53,7 @@ export function handleCheckboxChange(
     optionIndex: number,
     checked: boolean
 ): Commandment {
-    const updatedCommandment = deepClone(commandment); // Função para evitar mutações diretas
+    const updatedCommandment = deepClone(commandment); 
 
     const question = updatedCommandment.questions.find(
         (q) => q.questionNumber === questionNumber
@@ -75,17 +64,15 @@ export function handleCheckboxChange(
         return updatedCommandment;
     }
 
-    // Atualizar a checkbox
     question.options[optionIndex].checked = checked;
 
-    // Aplicar lógica de exclusividade, se necessário
     if (checked && question.options[optionIndex].isExclusive) {
         applyExclusiveLogic(question, optionIndex);
     } else if (!checked) {
         enableAllOptions(question);
     }
 
-    // Atualizar cookie
+
     updateCookieData(
         commandment.questionnaireNumber,
         questionNumber,
