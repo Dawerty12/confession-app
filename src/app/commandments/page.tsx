@@ -4,32 +4,25 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Commandment } from '@/repositories/interfaces/ICommandments';
 import { handleCheckboxChange } from '@/app/utils/handleCheckboxChange';
+import { fetchAndUpdateCommandments } from '../services/commandmentsService';
+import { applyTheme } from '../utils/themeManager';
 
 const CommandmentsList = () => {
     const [commandments, setCommandments] = useState<Commandment[]>([]);
 
     useEffect(() => {
-        const metaThemeColor = document.querySelector("meta[name='theme-color']");
-        if (metaThemeColor) {
-            metaThemeColor.setAttribute("content", "#222222");
-        } else {
+        applyTheme('#222222');
 
-            const newMeta = document.createElement("meta");
-            newMeta.name = "theme-color";
-            newMeta.content = "#222222";
-            document.head.appendChild(newMeta);
-        }
-
-        const fetchCommandments = async () => {
+        const loadCommandments = async () => {
             try {
-                const response = await axios.get('/api');
-                setCommandments(response.data);
+                const updatedCommandments = await fetchAndUpdateCommandments();
+                setCommandments(updatedCommandments);
             } catch (error) {
                 console.error("Error fetching commandments:", error);
             }
         };
-
-        fetchCommandments();
+        
+        loadCommandments();
     }, []);
 
     const handleCheckbox = (
