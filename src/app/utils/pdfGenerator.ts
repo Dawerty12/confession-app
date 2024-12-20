@@ -26,7 +26,7 @@ export function generatePDF() {
             doc.text(`Pergunta ${questionNumber}`, 15, yPosition);
             yPosition += 10;
 
-            options.forEach((option, index) => {
+            options.forEach((option) => {
                 doc.text(`- ${option}`, 20, yPosition);
                 yPosition += 10;
 
