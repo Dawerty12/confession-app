@@ -1,7 +1,7 @@
 import { Commandment, Question } from "@/repositories/interfaces/ICommandments";
 import { CookieData, loadFromCookie, saveToCookie } from "./cookiesManager";
 
-function applyExclusiveLogic(question: Question, exclusiveIndex: number) {
+export function applyExclusiveLogic(question: Question, exclusiveIndex: number) {
     question.options.forEach((option, index) => {
         if (index !== exclusiveIndex) {
             option.checked = false;
@@ -10,7 +10,7 @@ function applyExclusiveLogic(question: Question, exclusiveIndex: number) {
     });
 }
 
-function enableAllOptions(question: Question) {
+export function enableAllOptions(question: Question) {
     question.options.forEach((option) => {
         delete option.disabled;
     });

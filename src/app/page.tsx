@@ -4,7 +4,7 @@ import GuadalupeMary from '@/assets/GuadalupeMary.svg';
 
 export default function Home() {
   return (
-    <div id="main" className="bg-white w-full flex justify-center flex-col">
+    <div id="main" className="bg-white w-full max-w-screen-md mx-auto flex justify-center flex-col">
       <div id="guadalupe-image" className="flex justify-center h-80">
         <Image src={GuadalupeMary} alt="Guadalupe" width={300} height={100} />
       </div>
@@ -22,7 +22,7 @@ export default function Home() {
           <p>Reforçamos que nenhum dado do usuário é armazenado, garantindo total anonimato e segurança.</p>
         </div>
       </div>
-      <div id="button" className="w-full flex justify-center text-center">
+      <div id="button" className="w-full flex justify-center text-center max-w-screen-sm mx-auto">
         <Link href="/commandments" className=" bg-roman-red mt-10 p-6 rounded-lg text-white w-2/3 font-semibold text-lg" >
           Fazer exame de consciência
         </Link>
