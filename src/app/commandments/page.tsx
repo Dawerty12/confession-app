@@ -4,9 +4,11 @@ import { Commandment } from '@/repositories/interfaces/ICommandments';
 import { handleCheckboxChange } from '@/app/utils/handleCheckboxChange';
 import { fetchAndUpdateCommandments } from '../services/commandmentsService';
 import { applyTheme } from '../utils/themeManager';
+import PdfButton from '../components/pdfButton';
 
 const CommandmentsList = () => {
     const [commandments, setCommandments] = useState<Commandment[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         applyTheme('#222222');
@@ -17,6 +19,8 @@ const CommandmentsList = () => {
                 setCommandments(updatedCommandments);
             } catch (error) {
                 console.error("Error fetching commandments:", error);
+            } finally {
+                setLoading(false); 
             }
         };
 
@@ -39,9 +43,20 @@ const CommandmentsList = () => {
         });
     };
 
+    if (loading) {
+        return (
+            <div className="fixed inset-0 flex items-center justify-center bg-white text-roman-red">
+                <div className="text-center">
+                    <div className="loader"></div> 
+                    <p className="mt-4 text-lg font-semibold">Loading...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className="w-full">
-            <div id="head" className='bg-background-black text-white p-4'>
+        <div className="w-full ">
+            <div id="head" className='bg-backgr text-white p-4 bg-background-black'>
                 <h1 className="text-2xl font-semibold text-center">Exame de consciência</h1>
             </div>
 
@@ -121,6 +136,10 @@ const CommandmentsList = () => {
                         </div>
                     ))}
                 </ul>
+            </div>
+
+            <div id="pdf-button-div">
+                <PdfButton />
             </div>
         </div>
     );
