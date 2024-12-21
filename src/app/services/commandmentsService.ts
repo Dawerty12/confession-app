@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { Commandment } from '@/repositories/interfaces/ICommandments';
-import { loadFromCookie } from '../utils/localStorageManager';
+import { loadFromLocalStorage } from '../utils/LocalStorageManager';
 import { applyExclusiveLogic, enableAllOptions } from '../utils/handleCheckboxChange';
 
 export async function fetchAndUpdateCommandments(): Promise<Commandment[]> {
     const response = await axios.get('/api');
     const fetchedCommandments = response.data;
 
-    const cookieData = loadFromCookie();
+    const localStorageData = loadFromLocalStorage();
 
     return fetchedCommandments.map((commandment: Commandment) => {
-        const questionnaireData = cookieData[commandment.questionnaireNumber] || {};
+        const questionnaireData = localStorageData[commandment.questionnaireNumber] || {};
         return {
             ...commandment,
             questions: commandment.questions.map((question) => {
@@ -20,11 +20,13 @@ export async function fetchAndUpdateCommandments(): Promise<Commandment[]> {
                     ...question,
                     options: question.options.map((option) => ({
                         ...option,
-                        checked: savedOptions.includes(option.optionPhrase)
+                        checked: savedOptions.includes(option.optionPhrase),
                     })),
                 };
 
-                const exclusiveIndex = updatedQuestion.options.findIndex((option) => option.checked && option.isExclusive);
+                const exclusiveIndex = updatedQuestion.options.findIndex(
+                    (option) => option.checked && option.isExclusive
+                );
 
                 if (exclusiveIndex > -1) {
                     applyExclusiveLogic(updatedQuestion, exclusiveIndex);
@@ -33,7 +35,7 @@ export async function fetchAndUpdateCommandments(): Promise<Commandment[]> {
                 }
 
                 return updatedQuestion;
-            })
-        }
+            }),
+        };
     });
 }
