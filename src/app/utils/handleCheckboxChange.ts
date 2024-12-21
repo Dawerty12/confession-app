@@ -1,5 +1,5 @@
 import { Commandment, Question } from "@/repositories/interfaces/ICommandments";
-import { CookieData, loadFromCookie, saveToCookie } from "./cookiesManager";
+import { CookieData, loadFromLocalStorage, saveToLocalStorage } from "./localStorageManager";
 
 export function applyExclusiveLogic(question: Question, exclusiveIndex: number) {
     question.options.forEach((option, index) => {
@@ -16,36 +16,32 @@ export function enableAllOptions(question: Question) {
     });
 }
 
-export function updateCookieData(
+export function updateLocalStorageData(
     questionnaireNumber: number,
     questionNumber: number,
     optionPhrase: string,
     checked: boolean
 ): void {
+    const localStorageData: CookieData = loadFromLocalStorage();
 
-const cookieData: CookieData = loadFromCookie();
+    localStorageData[questionnaireNumber] ??= {};
+    localStorageData[questionnaireNumber][questionNumber] ??= [];
 
-    cookieData[questionnaireNumber] ??= {};
-    cookieData[questionnaireNumber][questionNumber] ??= [];
-
-
-
-    const options = cookieData[questionnaireNumber][questionNumber];
+    const options = localStorageData[questionnaireNumber][questionNumber];
     const index = options.indexOf(optionPhrase);
 
     if (checked && index === -1) {
-        options.push(optionPhrase); 
+        options.push(optionPhrase); // Adiciona a opção se marcada
     } else if (!checked && index > -1) {
-        options.splice(index, 1); 
+        options.splice(index, 1); // Remove a opção se desmarcada
     }
-    saveToCookie(cookieData);
-}
 
+    saveToLocalStorage(localStorageData);
+}
 
 function deepClone<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj));
 }
-
 
 export function handleCheckboxChange(
     commandment: Commandment,
@@ -53,7 +49,7 @@ export function handleCheckboxChange(
     optionIndex: number,
     checked: boolean
 ): Commandment {
-    const updatedCommandment = deepClone(commandment); 
+    const updatedCommandment = deepClone(commandment); // Clonar para evitar mutação
 
     const question = updatedCommandment.questions.find(
         (q) => q.questionNumber === questionNumber
@@ -72,8 +68,7 @@ export function handleCheckboxChange(
         enableAllOptions(question);
     }
 
-
-    updateCookieData(
+    updateLocalStorageData(
         commandment.questionnaireNumber,
         questionNumber,
         question.options[optionIndex].optionPhrase,

@@ -1,23 +1,22 @@
-import jspdf from 'jspdf';	
-import { CookieData, loadFromCookie } from './cookiesManager';
+import jspdf from 'jspdf';
+import { CookieData, loadFromLocalStorage } from './localStorageManager';
 
 export function generatePDF() {
-    const cookie: CookieData = loadFromCookie();
+    const data: CookieData = loadFromLocalStorage();
     const doc = new jspdf();
 
     // Construção do título
     doc.setFont('Roboto', 'bold');
     doc.setFontSize(14);
-    doc.text("Confissão", 105, 10, { align: 'center' }); 
+    doc.text("Confissão", 105, 10, { align: 'center' });
 
     doc.setFont('Roboto', 'normal');
     doc.setFontSize(12);
 
     // Construção do texto
-
     let yPosition = 30;
-    Object.keys(cookie).forEach((questionnaireNumber) => {
-        const questions = cookie[Number(questionnaireNumber)];
+    Object.keys(data).forEach((questionnaireNumber) => {
+        const questions = data[Number(questionnaireNumber)];
         doc.text(`Mandamento ${questionnaireNumber}`, 10, yPosition);
         yPosition += 10;
 
@@ -33,12 +32,10 @@ export function generatePDF() {
                 if (yPosition > 280) {
                     doc.addPage();
                     yPosition = 10;
-                };
-
+                }
             });
-
-        })
-    })
+        });
+    });
 
     doc.save('myconfession.pdf');
-}   
+}
