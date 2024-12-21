@@ -1,5 +1,5 @@
 import { Commandment, Question } from "@/repositories/interfaces/ICommandments";
-import { CookieData, loadFromLocalStorage, saveToLocalStorage } from "./LocalStorageManager";
+import { CookieData, loadFromLocalStorage, saveToLocalStorage } from "./localStorageManager";
 
 export function applyExclusiveLogic(question: Question, exclusiveIndex: number) {
     question.options.forEach((option, index) => {

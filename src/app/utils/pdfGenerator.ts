@@ -1,5 +1,5 @@
 import jspdf from 'jspdf';
-import { CookieData, loadFromLocalStorage } from './LocalStorageManager';
+import { CookieData, loadFromLocalStorage } from './localStorageManager';
 
 export function generatePDF() {
     const data: CookieData = loadFromLocalStorage();

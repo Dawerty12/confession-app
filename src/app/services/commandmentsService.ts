@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Commandment } from '@/repositories/interfaces/ICommandments';
-import { loadFromLocalStorage } from '../utils/LocalStorageManager';
+import { loadFromLocalStorage } from '../utils/localStorageManager';
 import { applyExclusiveLogic, enableAllOptions } from '../utils/handleCheckboxChange';
 
 export async function fetchAndUpdateCommandments(): Promise<Commandment[]> {
