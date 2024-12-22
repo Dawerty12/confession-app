@@ -1,32 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
-import GuadalupeMary from '@/assets/GuadalupeMary.svg';
+import Guadalupe from '@/assets/Guadalupe.svg';
 
 export default function Home() {
   return (
-    <div id="main" className="bg-white w-full max-w-screen-md mx-auto flex justify-center flex-col">
-      <div id="guadalupe-image" className="flex justify-center h-80">
-        <Image src={GuadalupeMary} alt="Guadalupe" width={300} height={100} />
-      </div>
-      <div id="body" className="w-full flex flex-col text-center justify-center items-center">
-        <h1 className="text-roman-red font-bold text-2xl">Não sabe como fazer sua <br />confissão? <br /> Nós te ajudamos.</h1>
-        <div id="text" className="w-5/6 flex flex-col mt-6 font-medium">
-          <p>
-            Este aplicativo foi desenvolvido para auxiliar os fiéis na preparação para o sacramento da confissão. As perguntas são cuidadosamente elaboradas com base nos mandamentos e nas orientações da Igreja, evitando qualquer linguagem inapropriada, e incluem referências aos ensinamentos dos santos para oferecer um direcionamento espiritual.
-          </p>
-          <br /> 
-          <p>
-            Após a reflexão, é possível gerar um PDF com a confissão organizada de forma prática e acessível para ser apresentada ao confessor.
-          </p>
-          <br /> 
-          <p>Reforçamos que nenhum dado do usuário é armazenado, garantindo total anonimato e segurança.</p>
+    <main className="w-full">
+      <div id="container" className="m-7 flex flex-col items-center">
+        <div id="guadalupe" className="mt-10">
+          <Image src={Guadalupe} alt="Guadalupe Mary" width={350} />
+        </div>
+
+        <div id="title" className="mt-5 font-katibeh text-center">
+          <h1 className="text-6xl text-brand-500 leading-10">Não sabe o que 
+            <br /><span className="text-brand-900">confessar?</span>
+            <br /><span className="text-brand-500 text-5xl">Nós te ajudamos</span>
+            </h1>
+        </div>
+        <div id="body-text" className="p-4 text-center mt-5">
+            <p className="text-brand-900 font-roboto font-normal text-xl">
+            Este aplicativo foi desenvolvido para auxiliar os fiéis na preparação para o sacramento da confissão. As perguntas são cuidadosamente elaboradas com base nos mandamentos e nas orientações da Igreja.
+            </p>
+        </div>
+        <div id="next-button" className="mt-5 bg-brand-500 h-16 w-80 rounded-xl flex items-center justify-center cursor-pointer">
+          <Link href="/commandments" className="w-full h-full flex items-center justify-center text-white">
+            Montar confissão
+          </Link>
         </div>
       </div>
-      <div id="button" className="w-full flex justify-center text-center max-w-screen-sm mx-auto">
-        <Link href="/commandments" className=" bg-roman-red mt-10 p-6 rounded-lg text-white w-2/3 font-semibold text-lg" >
-          Fazer exame de consciência
-        </Link>
-      </div>
-    </div>
+    </main>
   );
 }
