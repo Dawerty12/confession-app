@@ -1,39 +1,53 @@
-import jspdf from 'jspdf';
-import { CookieData, loadFromLocalStorage } from './localStorageManager';
+import jsPDF from 'jspdf';
+import { fetchAndUpdateCommandments } from '../services/commandmentsService';
 
-export function generatePDF() {
-    const data: CookieData = loadFromLocalStorage();
-    const doc = new jspdf();
+export async function generatePDF() {
+    const commandments = await fetchAndUpdateCommandments(); // Obtém os mandamentos completos com dados do localStorage
+    const doc = new jsPDF();
 
-    // Construção do título
     doc.setFont('Roboto', 'bold');
     doc.setFontSize(14);
     doc.text("Confissão", 105, 10, { align: 'center' });
 
-    doc.setFont('Roboto', 'normal');
+    doc.setFont('Times New Roman', 'normal');
     doc.setFontSize(12);
 
-    // Construção do texto
     let yPosition = 30;
-    Object.keys(data).forEach((questionnaireNumber) => {
-        const questions = data[Number(questionnaireNumber)];
-        doc.text(`Mandamento ${questionnaireNumber}`, 10, yPosition);
+
+    commandments.forEach((commandment) => {
+        const { questionnaireTitle, questions, questionnaireSubtitle } = commandment;
+
+        doc.setFont('Roboto', 'bold');
+        doc.text(`${questionnaireTitle}`, 10, yPosition);
         yPosition += 10;
 
-        Object.keys(questions).forEach((questionNumber) => {
-            const options = questions[Number(questionNumber)];
-            doc.text(`Pergunta ${questionNumber}`, 15, yPosition);
+        
+        if (questionnaireSubtitle) {
+            doc.setFont('Roboto', 'semibold');
+            doc.text(`${questionnaireSubtitle}`, 10, yPosition);
+            yPosition += 10;
+        }
+
+        doc.setFont('Times New Roman', 'normal');
+      
+
+        questions.forEach((question) => {
+            const { questionTitle, options } = question;
+
+            doc.text(`${questionTitle}`, 15, yPosition);
             yPosition += 10;
 
-            options.forEach((option) => {
-                doc.text(`- ${option}`, 20, yPosition);
-                yPosition += 10;
+            options
+                .filter((option) => option.checked)
+                .forEach((option) => {
+                    doc.text(`- ${option.optionPhrase}`, 20, yPosition);
+                    yPosition += 10;
 
-                if (yPosition > 280) {
-                    doc.addPage();
-                    yPosition = 10;
-                }
-            });
+                    if (yPosition > 280) {
+                        doc.addPage();
+                        yPosition = 10;
+                    }
+                });
         });
     });
 
