@@ -4,11 +4,11 @@
     left: -250px;
     width: 250px;
     height: 100vh;
-    background-color: #1a202c; /* Cor escura */
+    background-color: #1a202c; /* Fundo escuro */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     transition: left 0.3s ease;
     z-index: 1000;
-    padding: 20px 0;
+    padding-top: 20px; /* Adiciona espaço para o botão de hambúrguer */
   }
   
   .navbar.show {
@@ -21,10 +21,15 @@
     margin: 0;
   }
   
+  /* Adiciona espaçamento extra no primeiro item */
+  .navList li:first-child {
+    margin-top: 40px;
+  }
+  
   .navLink {
     display: flex;
     align-items: center;
-    color: #ffffff;
+    color: #9fa6b2; /* Cor padrão */
     text-decoration: none;
     padding: 10px 15px;
     font-size: 1rem;
@@ -32,18 +37,25 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   
+  /* Estilo exclusivo para o primeiro link */
+  .navList li:first-child .navLink {
+    color: #ffffff; /* Branco */
+    font-weight: bold; /* Destaque */
+  }
+  
   .navLink:hover {
-    background-color: #2d3748;
-    color: #a0aec0;
+    background-color: #2d3748; /* Cor de fundo ao passar o mouse */
   }
   
+  /* Ícones dentro dos links */
   .icon {
-    margin-right: 10px; /* Espaço entre o ícone e o texto */
-    font-size: 1.2rem; /* Tamanho do ícone */
+    margin-right: 10px;
+    font-size: 1.2rem;
   }
   
+  /* Botão de hambúrguer */
   .hamburger {
-    position: fixed;
+    position: absolute;
     top: 20px;
     left: 20px;
     background: none;
@@ -60,7 +72,7 @@
   .bar {
     width: 30px;
     height: 3px;
-    background-color: #1a202c;
+    background-color: white;
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
   
@@ -76,6 +88,7 @@
     transform: translateY(-10px) rotate(-45deg);
   }
   
+  /* Overlay escurecido */
   .overlay {
     position: fixed;
     top: 0;

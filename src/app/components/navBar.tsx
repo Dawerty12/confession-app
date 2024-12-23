@@ -1,7 +1,8 @@
-"use client";
-import { useState } from 'react';
+"use client"
+import React, { useState } from 'react';
+import Link from 'next/link';
 import styles from './Navbar.module.css';
-import { FaHome, FaBook, FaInfoCircle } from 'react-icons/fa'; // Ícones de exemplo
+import { FaHome, FaBook, FaInfoCircle } from 'react-icons/fa';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,30 +13,36 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Botão de hambúrguer */}
       <button className={styles.hamburger} onClick={toggleNavbar}>
         <div className={`${styles.bar} ${isOpen ? styles.open : ''}`}></div>
         <div className={`${styles.bar} ${isOpen ? styles.open : ''}`}></div>
         <div className={`${styles.bar} ${isOpen ? styles.open : ''}`}></div>
       </button>
 
+      {/* Overlay escuro quando o menu está aberto */}
       {isOpen && <div className={styles.overlay} onClick={toggleNavbar}></div>}
 
+      {/* Navbar lateral */}
       <nav className={`${styles.navbar} ${isOpen ? styles.show : ''}`}>
         <ul className={styles.navList}>
+          {/* Primeiro item com estilo exclusivo */}
           <li>
-            <a href="/" className={styles.navLink}>
+            <Link href="/" className={styles.navLink}>
               <FaHome className={styles.icon} /> Home
-            </a>
+            </Link>
           </li>
+          {/* Confissão */}
           <li>
-            <a href="/commandments" className={styles.navLink}>
+            <Link href="/commandments" className={styles.navLink}>
               <FaBook className={styles.icon} /> Confissão
-            </a>
+            </Link>
           </li>
+          {/* Sobre Nós */}
           <li>
-            <a href="/about" className={styles.navLink}>
+            <Link href="/about" className={styles.navLink}>
               <FaInfoCircle className={styles.icon} /> Sobre Nós
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
