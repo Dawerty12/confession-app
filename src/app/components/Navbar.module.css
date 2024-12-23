@@ -39,8 +39,8 @@
   
   /* Estilo exclusivo para o primeiro link */
   .navList li:first-child .navLink {
-    color: #ffffff; /* Branco */
-    font-weight: bold; /* Destaque */
+    color: #3f0202; 
+    font-weight: bold; 
   }
   
   .navLink:hover {
