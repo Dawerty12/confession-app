@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import Guadalupe from '@/assets/Guadalupe.svg';
+import Navbar from "./components/navBar";
 
 export default function Home() {
   return (
     <main className="w-full">
+        <Navbar />
       <div id="container" className="m-7 flex flex-col items-center">
         <div id="guadalupe" className="mt-10">
           <Image src={Guadalupe} alt="Guadalupe Mary" width={350} />
