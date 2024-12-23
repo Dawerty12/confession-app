@@ -1,4 +1,4 @@
-/* Estilos principais da Navbar */
+/* Navbar lateral */
 .navbar {
     position: fixed;
     top: 0;
@@ -9,6 +9,7 @@
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     transition: left 0.3s ease;
     z-index: 1000;
+    padding: 10px; /* Adicionado espaçamento interno */
   }
   
   .navbar.show {
@@ -26,9 +27,10 @@
     display: block;
     color: white;
     text-decoration: none;
-    padding: 15px 20px;
-    font-size: 1.2rem;
+    padding: 10px 15px; /* Ajustado o padding */
+    font-size: 1rem; /* Reduzido tamanho da fonte */
     transition: background-color 0.3s;
+    margin: 5px 0; /* Espaçamento entre os links */
   }
   
   .navLink:hover {
@@ -48,19 +50,19 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 30px;
-    height: 25px;
+    width: 25px; /* Reduzido tamanho do botão */
+    height: 20px; /* Reduzido tamanho do botão */
   }
   
   .bar {
-    width: 30px;
-    height: 3px;
-    background-color: white;
+    width: 25px;
+    height: 2px; /* Reduzida altura da barra */
+    background-color: #1a202c; /* Ajustada cor para contraste */
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
   
   .bar.open:nth-child(1) {
-    transform: translateY(10px) rotate(45deg);
+    transform: translateY(7px) rotate(45deg);
   }
   
   .bar.open:nth-child(2) {
@@ -68,7 +70,7 @@
   }
   
   .bar.open:nth-child(3) {
-    transform: translateY(-10px) rotate(-45deg);
+    transform: translateY(-7px) rotate(-45deg);
   }
   
   /* Overlay escurecido */
@@ -80,5 +82,15 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+  }
+  
+  /* Corpo */
+  body {
+    background-color: #ffffff; /* Fundo branco */
+    font-family: 'Arial', sans-serif; /* Fonte genérica */
+    margin: 0 auto;
+    max-width: 1024px; /* Limite de largura para telas grandes */
+    padding: 20px; /* Margem ao redor do conteúdo */
+    color: #333333; /* Cor de texto escuro */
   }
   
