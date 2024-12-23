@@ -57,9 +57,9 @@ const CommandmentsList = () => {
 
     return (
         <main className='w-full'>
-            <div id="container" className='m-7 flex flex-col items-center max-w-screen-md mx-auto'>
+            <div id="container" className='p-10 flex flex-col items-center max-w-screen-md mx-auto'>
                 <div id="page-title">
-                    <Link href="/" className='font-roboto text-xl font-bold text-brand-500'>EXAME DE CONSCIÊNCIA</Link>
+                    <Link href="/" className='font-katibeh text-3xl font-bold text-brand-500'>EXAME DE CONSCIÊNCIA</Link>
                 </div>
                 <div id="warning-block" className='w-full mt-5 max-w-screen-md mx-auto'>
                     <div id="warning-head" className='bg-warning-500 w-full flex flex-col items-center rounded-t-2xl'>
@@ -72,10 +72,10 @@ const CommandmentsList = () => {
 
                 <div id="commandments-body" className='mt-5 w-full max-w-screen-md mx-auto'>
                     {commandments.map((commandments) => (
-                        <div 
-                        id='info' 
-                        key={commandments.questionnaireNumber}
-                        className='bg-whites-question-background w-full rounded-2xl mb-5'>
+                        <div
+                            id='info'
+                            key={commandments.questionnaireNumber}
+                            className='bg-whites-question-background w-full rounded-2xl mb-5'>
                             <div id="question-header" className='bg-brand-500 rounded-t-2xl mb-1 p-2 '>
                                 <h1 className=' text-center flex items-center justify-center text-white uppercase font-semibold'>{commandments.questionnaireTitle}</h1>
                                 {commandments.questionnaireSubtitle && (
@@ -84,9 +84,9 @@ const CommandmentsList = () => {
                             </div>
                             <div id="question-body">
                                 {commandments.questions.map((question) => (
-                                    <div 
-                                    id="question-info"
-                                    key={question.questionNumber}
+                                    <div
+                                        id="question-info"
+                                        key={question.questionNumber}
                                     >
                                         <div id="question-title" className='flex p-4 items-center border-b-2 border-whites-line-white'>
                                             <div id="number-square" className='bg-brand-500 h-10 w-10 rounded-md flex items-center justify-center mr-2 '>
@@ -116,15 +116,15 @@ const CommandmentsList = () => {
                                                         )
                                                     }
                                                 >
-                                                   <div>
-                                                   <input
-                                                        type="checkbox"
-                                                        className="appearance-none w-6 h-6 bg-whites-checkbox-white rounded-md checked:bg-brand-500 checked:border-transparent"
-                                                        checked={option.checked || false}
-                                                        disabled={option.disabled || false}
-                                                        onChange={(e) => e.stopPropagation()} // Evitar duplicar chamada
-                                                    />
-                                                   </div>
+                                                    <div>
+                                                        <input
+                                                            type="checkbox"
+                                                            className="appearance-none w-6 h-6 bg-whites-checkbox-white rounded-md checked:bg-brand-500 checked:border-transparent"
+                                                            checked={option.checked || false}
+                                                            disabled={option.disabled || false}
+                                                            onChange={(e) => e.stopPropagation()} // Evitar duplicar chamada
+                                                        />
+                                                    </div>
                                                     <span
                                                         className={`${option.checked ? 'text-brand-500' : 'text-whites-text-gray'
                                                             } text-sm font-medium`}
@@ -143,7 +143,7 @@ const CommandmentsList = () => {
                     ))}
                 </div>
 
-                <PdfButton/>
+                <PdfButton />
             </div>
         </main>
     )

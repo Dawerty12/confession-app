@@ -2,7 +2,7 @@ import jsPDF from 'jspdf';
 import { fetchAndUpdateCommandments } from '../services/commandmentsService';
 
 export async function generatePDF() {
-    const commandments = await fetchAndUpdateCommandments(); // Obtém os mandamentos completos com dados do localStorage
+    const commandments = await fetchAndUpdateCommandments(); 
     const doc = new jsPDF();
 
     doc.setFont('Roboto', 'bold');
