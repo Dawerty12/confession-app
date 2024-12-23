@@ -1,9 +1,9 @@
-"use client"
-import { useState } from "react";
-import Link from "next/link";
-import styles from "./Navbar.module.css";
+"use client";
+import { useState } from 'react';
+import styles from './Navbar.module.css';
+import { FaHome, FaBook, FaInfoCircle } from 'react-icons/fa'; // Ícones de exemplo
 
-const Navbar: React.FC = () => {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
@@ -11,39 +11,34 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div>
-      {/* Botão de Hambúrguer */}
+    <>
       <button className={styles.hamburger} onClick={toggleNavbar}>
-        <div className={`${styles.bar} ${isOpen && styles.open}`} />
-        <div className={`${styles.bar} ${isOpen && styles.open}`} />
-        <div className={`${styles.bar} ${isOpen && styles.open}`} />
+        <div className={`${styles.bar} ${isOpen ? styles.open : ''}`}></div>
+        <div className={`${styles.bar} ${isOpen ? styles.open : ''}`}></div>
+        <div className={`${styles.bar} ${isOpen ? styles.open : ''}`}></div>
       </button>
 
-      {/* Navbar Lateral */}
-      <nav className={`${styles.navbar} ${isOpen ? styles.show : ""}`}>
+      {isOpen && <div className={styles.overlay} onClick={toggleNavbar}></div>}
+
+      <nav className={`${styles.navbar} ${isOpen ? styles.show : ''}`}>
         <ul className={styles.navList}>
           <li>
-            <Link href="/about">
-              <a className={styles.navLink}>Sobre Nós</a>
-            </Link>
+            <a href="/" className={styles.navLink}>
+              <FaHome className={styles.icon} /> Home
+            </a>
           </li>
           <li>
-            <Link href="/confession">
-              <a className={styles.navLink}>Confissão</a>
-            </Link>
+            <a href="/commandments" className={styles.navLink}>
+              <FaBook className={styles.icon} /> Confissão
+            </a>
           </li>
           <li>
-            <Link href="/texts">
-              <a className={styles.navLink}>Textos</a>
-            </Link>
+            <a href="/about" className={styles.navLink}>
+              <FaInfoCircle className={styles.icon} /> Sobre Nós
+            </a>
           </li>
         </ul>
       </nav>
-
-      {/* Background Overlay */}
-      {isOpen && <div className={styles.overlay} onClick={toggleNavbar}></div>}
-    </div>
+    </>
   );
-};
-
-export default Navbar;
+}
