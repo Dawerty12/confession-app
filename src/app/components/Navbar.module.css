@@ -16,6 +16,7 @@
   }
   
   .navList {
+    
     list-style: none;
     padding: 0;
     margin: 0;
@@ -39,8 +40,8 @@
   
   /* Estilo exclusivo para o primeiro link */
   .navList li:first-child .navLink {
-    color: #3f0202; 
-    font-weight: bold; 
+    color: #ffffff; /* Branco */
+    font-weight: bold; /* Destaque */
   }
   
   .navLink:hover {
@@ -72,7 +73,7 @@
   .bar {
     width: 30px;
     height: 3px;
-    background-color: white;
+    background-color: black; /* Alterado para preto */
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
   
@@ -98,4 +99,5 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
   }
+
   
