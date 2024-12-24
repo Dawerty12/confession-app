@@ -4,6 +4,7 @@ export interface Option {
     openDialog?: boolean;
     checked?: boolean;
     disabled?: boolean;
+    relatedText?: string; 
 }
 
 export interface Question {
@@ -18,4 +19,3 @@ export interface Commandment {
     questionnaireSubtitle?: string;
     questions: Question[];
 }
-
