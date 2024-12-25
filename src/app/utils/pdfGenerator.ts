@@ -2,7 +2,7 @@ import jsPDF from 'jspdf';
 import { fetchAndUpdateCommandments } from '../services/commandmentsService';
 
 export async function generatePDF() {
-    const commandments = await fetchAndUpdateCommandments();
+    const commandments = await fetchAndUpdateCommandments(); 
     const doc = new jsPDF();
 
     doc.setFont('Roboto', 'bold');
@@ -21,6 +21,7 @@ export async function generatePDF() {
         doc.text(`${questionnaireTitle}`, 10, yPosition);
         yPosition += 10;
 
+        
         if (questionnaireSubtitle) {
             doc.setFont('Roboto', 'semibold');
             doc.text(`${questionnaireSubtitle}`, 10, yPosition);
@@ -28,6 +29,7 @@ export async function generatePDF() {
         }
 
         doc.setFont('Times New Roman', 'normal');
+      
 
         questions.forEach((question) => {
             const { questionTitle, options } = question;
@@ -38,8 +40,7 @@ export async function generatePDF() {
             options
                 .filter((option) => option.checked)
                 .forEach((option) => {
-                    const displayText = option.relatedText || option.optionPhrase; // Usa o relatedText, se disponível
-                    doc.text(`- ${displayText}`, 20, yPosition);
+                    doc.text(`- ${option.optionPhrase}`, 20, yPosition);
                     yPosition += 10;
 
                     if (yPosition > 280) {

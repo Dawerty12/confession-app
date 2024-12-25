@@ -4,14 +4,12 @@ export interface Option {
     openDialog?: boolean;
     checked?: boolean;
     disabled?: boolean;
-    relatedText?: string; 
 }
 
 export interface Question {
     questionNumber: number;
     questionTitle: string;
     options: Option[];
-    
 }
 
 export interface Commandment {

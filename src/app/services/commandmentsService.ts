@@ -3,13 +3,6 @@ import { Commandment } from '@/repositories/interfaces/ICommandments';
 import { loadFromLocalStorage } from '../utils/localStorageManager';
 import { applyExclusiveLogic, enableAllOptions } from '../utils/handleCheckboxChange';
 
-const atenuantes: Record<string, string> = {
-    "Alternativa 1": "Texto atenuante para a Alternativa 1.",
-    "Alternativa 2": "Texto atenuante para a Alternativa 2.",
-    "Alternativa 3": "Texto atenuante para a Alternativa 3.",
-    "Alternativa 4": "Texto atenuante para a Alternativa 4.",
-};
-
 export async function fetchAndUpdateCommandments(): Promise<Commandment[]> {
     const response = await axios.get('/api');
     const fetchedCommandments = response.data;
@@ -28,7 +21,6 @@ export async function fetchAndUpdateCommandments(): Promise<Commandment[]> {
                     options: question.options.map((option) => ({
                         ...option,
                         checked: savedOptions.includes(option.optionPhrase),
-                        relatedText: atenuantes[option.optionPhrase] || '', // Preenche o texto relacionado
                     })),
                 };
 
