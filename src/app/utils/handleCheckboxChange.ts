@@ -60,20 +60,28 @@ export function handleCheckboxChange(
         return updatedCommandment;
     }
 
-    question.options[optionIndex].checked = checked;
+    const option = question.options[optionIndex];
+    option.checked = checked;
 
-    if (checked && question.options[optionIndex].isExclusive) {
+    // Adicionar lógica de exclusividade
+    if (checked && option.isExclusive) {
         applyExclusiveLogic(question, optionIndex);
     } else if (!checked) {
         enableAllOptions(question);
     }
 
+    // Atualizar o localStorage
     updateLocalStorageData(
         commandment.questionnaireNumber,
         questionNumber,
-        question.options[optionIndex].optionPhrase,
+        option.optionPhrase,
         checked
     );
+
+    // Lógica para manipular atenuantes
+    if (checked && option.relatedText) {
+        console.log(`Texto associado para "${option.optionPhrase}": ${option.relatedText}`);
+    }
 
     return updatedCommandment;
 }

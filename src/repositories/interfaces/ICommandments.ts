@@ -11,6 +11,7 @@ export interface Question {
     questionNumber: number;
     questionTitle: string;
     options: Option[];
+    
 }
 
 export interface Commandment {
